@@ -1,123 +1,35 @@
 /*
-Goals:
+Write a function that takes two parameters: a std::vector and an index. 
+If the index is out of bounds, print an error. If the index is in bounds, print the value of the element.
 
-We’ll start by defining our list of words and writing a random word picker. You can use the Random.h from lesson 8.15 -- Global random numbers (Random.h) to assist.
-Tasks:
+and produce the following result:
 
-First define a namespace named WordList. The starter list of words is: “mystery”, “broccoli” , “account”, “almost”, “spaghetti”, “opinion”, “beautiful”, “distance”, “luggage”. You can add others if you like.
-Write a function to pick a random word and display the word picked. Run the program several times to make sure the word is randomized.
-Here is a sample output from this step:
-
-Welcome to C++man (a variant of Hangman)
-To win: guess the word.  To lose: run out of pluses.
-
-The word is: broccoli
-*/
-
-/*
-STEP 2
-As we develop complex programs, we want to work incrementally, adding one or two things at a time and then making sure they work. What makes sense to add next?
-
-Goals:
-
-Be able to draw the basic state of the game, showing the word as underscores.
-Accept a letter of input from the user, with basic error validation.
-In this step, we will not yet keep track of which letters the user has entered.
-
-Here is the sample output from this step:
-
-Welcome to C++man (a variant of Hangman)
-To win: guess the word.  To lose: run out of pluses.
-
-The word: ________
-Enter your next letter: %
-That wasn't a valid input.  Try again.
-Enter your next letter: a
-You entered: a
-Tasks:
-
-Create a class named Session that will be used to store all of the data the game needs to manage in a game session. 
-For now, we just need to know what the random word is.
-Create a function to display the basic state of the game, where the word is displayed as underscores.
-Create a function to accept a letter of input from the user. Do basic input validation to filter out non-letters or extraneous input.
-
+The element has value 2
+Invalid index
+The element has value 1.1
+Invalid index
 */
 
 #include <iostream>
 #include <vector>
-#include "random.h"
-#include <string>
 
-namespace WordList
+template <typename T>
+void printElement(const std::vector<T>& arr, int index)
 {
-    std::vector<std::string_view> words {"mystery", "broccoli", "account", "almost", "spaghetti", "opinion", "beautiful", "distance", "luggage"};
-
-    std::string_view getRandomWord()
-    {
-        return words[Random::get<std::size_t>(0, words.size()-1)];
-    }
-
-};
-
-void undescores(std::string_view words)
-{
-
-    for (std::string::size_type i = 0; i < words.size(); i++)
-    {
-        std::cout << "_";
-    }
+    if (index >= static_cast<int>(arr.size()) || index < 0)
+        std::cout << "Invalid index\n";
+    else
+        std::cout << "the element has value " << arr[index] << "\n";
 
 }
 
-char userInput()
+int main()
 {
-    while(true){
+    std::vector v1{ 0, 1, 2, 3, 4 };
+    printElement(v1, 2);
+    printElement(v1, 5);
 
-        std::cout << "enter your next letter: ";
-        char str;
-
-        std::cin >> str;
-
-        if (!std::cin)
-        {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // remove any extra input
-
-            continue;
-        }
-
-        if (str < 'a'|| str > 'z')
-        {
-            std::cout << "invalid input" << str << "\n";
-            continue;
-        }
-        
-        return str;
-    }
-
-}
-
-class Session
-{
-private:
-
-public:
-    
-};
-
-
-
-int main(){
-
-    std::cout << "Welcome to C++man (a variant of Hangman)\n To win: guess the word.  To lose: run out of pluses.\n";
-
-    std::string words{WordList::getRandomWord()};
-
-    std::cout << "the word : " << undescores(words) << "\n";
-
-    char rt {userInput()};
-    std::cout << "You entered: " <<rt;
-
-
-    return 0;
+    std::vector v2{ 1.1, 2.2, 3.3 };
+    printElement(v2, 0);
+    printElement(v2, -1);
 }
