@@ -1,4 +1,4 @@
-## This project is focused on C++ training and the creation of a dropper with the following steps:
+## This project is focused on C++ training and the creation of a dropper
 
 ### **Steps:**
 **Shellcode Embedding:** The shellcode (in this example, it launches calc.exe) is embedded in the application’s resources (inside the .rsrc section).
